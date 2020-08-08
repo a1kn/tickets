@@ -1,0 +1,11 @@
+<%= render 'shared/title', title: @project.name %>
+
+<div class="mb-5">
+  <p class="lead"><%= @project.description %></p>
+  <%= link_to 'Edit Project', edit_project_path(@project) %> | 
+  <%= link_to 'Delete Project', project_path(@project),
+      method: :delete,
+      data: { confirm: 'Are you sure?' } %>
+</div>
+<h3 class="mt-8">Tickets</h3>
+<%= render 'tickets/table' %>

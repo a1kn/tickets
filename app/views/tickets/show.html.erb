@@ -1,0 +1,6 @@
+<%= render 'shared/title', title: @ticket.name %>
+
+<%= link_to 'edit', edit_ticket_path(@ticket) %>
+<%= link_to 'delete', ticket_path(@ticket),
+    method: :delete,
+    data: { confirm: 'Are you sure?' } %>

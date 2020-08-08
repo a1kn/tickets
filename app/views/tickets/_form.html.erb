@@ -1,0 +1,31 @@
+<%= form_with model: @ticket, local: true do |f| %>
+  <%= render 'shared/errors', obj: @ticket %>
+
+  <div class="form-group">
+    <%= f.label :project_id %>
+    <%= f.select :project_id, {}, {prompt: 'Select Project'}, {class: 'form-control'}  do %>
+      <% @projects.each do |project| %>
+        <% if project.id == @ticket.project_id %>
+          <%= content_tag(:option, project.name, value: project.id, selected: 'selected') %>
+        <% else %>
+          <%= content_tag(:option, project.name, value: project.id) %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :body %>
+    <%= f.text_area :body, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :status %>
+    <%= f.select :status, [['New', 'new'], ['Blocked', 'blocked'], 
+                           ['In Progress', 'in_progress'], ['Fixed', 'fixed']], 
+    {prompt: 'Select Status'}, {class: 'form-control'} %>
+  </div>
+  <%= f.submit 'Submit', class: 'btn btn-primary' %>
+<% end %>

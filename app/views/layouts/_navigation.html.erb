@@ -1,0 +1,19 @@
+<a class="navbar brand" href="/">Ticketing App</a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+</button>
+
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <%= link_to 'Projects', projects_path, class: 'nav-link' %>
+    </li>
+    <li class="nav-item">
+      <%= link_to 'Tickets', tickets_path, class: 'nav-link' %>
+    </li>
+  </ul>
+  <form class="form-inline">
+    <%= link_to 'New Project', new_project_path, class: 'btn btn-outline-primary mx-1' %>
+    <%= link_to 'New Ticket', new_ticket_path, class: 'btn btn-primary mx-1' %>
+  </form>
+</div>

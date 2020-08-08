@@ -1,0 +1,25 @@
+<div class="my-5">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Project Name</th>
+        <th scope="col">Open Tickets</th>
+        <th scope="col">Total Tickets</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @projects.each do |project| %>
+      <% total = project.tickets.size %>
+      <% open_size = total - project.tickets.where('status = ?', 'fixed').size %>
+      <tr>
+        <td><%= link_to project.name, project_path(project) %><br>
+            <%= project.description %></td>
+        <td><%= open_size %></td>
+        <td><%= total %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+

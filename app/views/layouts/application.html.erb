@@ -8,8 +8,15 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
   <body>
-    <%= yield %>
+    <header>
+      <div class="navbar navbar-expand-lg navbar-light bg-light">
+        <%= render 'layouts/navigation'%>
+      </div>
+    </header>
+    <main role="main" class="container-sm">
+      <%= render 'shared/messages' %>
+      <%= yield %>
+    </div>
   </body>
 </html>
