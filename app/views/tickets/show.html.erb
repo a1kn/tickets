@@ -1,6 +1,26 @@
 <%= render 'shared/title', title: @ticket.name %>
 
-<%= link_to 'edit', edit_ticket_path(@ticket) %>
-<%= link_to 'delete', ticket_path(@ticket),
-    method: :delete,
-    data: { confirm: 'Are you sure?' } %>
+<p class="lead"><%= @ticket.body %></p>
+<p><strong>Tags: </strong><%= @ticket.tags.map{|t| t.name}.join(', ') %></p>
+
+<div class="my-5">
+  <%= link_to 'Edit', edit_ticket_path(@ticket) %> |
+  <%= link_to 'Delete', ticket_path(@ticket),
+      method: :delete,
+      data: { confirm: 'Are you sure?' } %>
+</div>
+
+<div class="my-5">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= @ticket.status.split('_').map(&:capitalize).join(' ') %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

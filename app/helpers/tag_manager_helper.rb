@@ -1,0 +1,2 @@
+module TagManagerHelper
+end

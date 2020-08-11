@@ -10,13 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_07_204733) do
+ActiveRecord::Schema.define(version: 2020_08_10_161345) do
 
   create_table "projects", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "ticket_tags", force: :cascade do |t|
+    t.integer "ticket_id"
+    t.integer "tag_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["tag_id"], name: "index_ticket_tags_on_tag_id"
+    t.index ["ticket_id"], name: "index_ticket_tags_on_ticket_id"
   end
 
   create_table "tickets", force: :cascade do |t|
@@ -27,6 +42,14 @@ ActiveRecord::Schema.define(version: 2020_08_07_204733) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["project_id"], name: "index_tickets_on_project_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "username"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "password_digest"
+    t.string "email"
   end
 
   add_foreign_key "tickets", "projects"

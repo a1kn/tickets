@@ -4,6 +4,7 @@
       <tr>
         <th scope="col">Name</th>
         <th scope="col">Status</th>
+        <th scope="col">Tags</th>
         <th scope="col">Actions</th>
       </tr>
     </thead>
@@ -11,8 +12,11 @@
     <% @tickets.each do |ticket| %>
       <tr>
         <td><%= link_to ticket.name, ticket_path(ticket) %></td>
-        <td><%= ticket.status %></td>
-        <td><%= link_to 'Edit', edit_ticket_path(ticket) %>&nbsp;
+        <td><%= ticket.status.split('_').map(&:capitalize).join(' ') %></td>
+        <td>
+          <%= ticket.tags.map {|tag| tag.name}.join(', ') %>
+        </td>
+        <td><%= link_to 'Edit', edit_ticket_path(ticket) %> |
             <%= link_to 'Delete', ticket_path(ticket),
                 method: :delete,
                 data: { confirm: 'Are you sure?' } %> </td>

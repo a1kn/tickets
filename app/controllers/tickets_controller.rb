@@ -1,4 +1,6 @@
 class TicketsController < ApplicationController
+  before_action :require_login, except: [:index, :show]
+
   def index
     @tickets = Ticket.all
   end
@@ -6,11 +8,13 @@ class TicketsController < ApplicationController
   def new
     @projects = Project.all
     @ticket = Ticket.new
+    @tags = Tag.all
   end
 
   def create
     @ticket = Ticket.new(strong_params)
     @projects = Project.all
+    @tags = Tag.all
 
     if @ticket.save
       flash[:success] = 'Ticket created.'
@@ -26,12 +30,15 @@ class TicketsController < ApplicationController
 
   def edit
     @ticket = find_ticket
+    @tags = Tag.all
     @projects = Project.all
   end
 
   def update
     @ticket = find_ticket
+    @tags = Tag.all
     @projects = Project.all
+    add_tags
 
     if @ticket.update(strong_params)
       flash[:success] = 'Ticket updated.'
@@ -57,5 +64,10 @@ class TicketsController < ApplicationController
 
   def find_ticket
     Ticket.find(params[:id])
+  end
+
+  def add_tags
+    tags = params[:tags].map {|tag_id| Tag.find(tag_id)}
+    @ticket.tags = tags
   end
 end
