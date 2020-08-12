@@ -2,7 +2,8 @@ class TagsController < ApplicationController
   before_action :require_login, except: [:index]
 
   def index
-    @tags = Tag.all
+    @tags = Tag.all.sort_by { |t| t.name }
+    @post_counts = Tag.joins(:ticket_tags).group('tag_id').size
   end
 
   def new
@@ -40,7 +41,7 @@ class TagsController < ApplicationController
     @tag.destroy
 
     flash[:success] = 'Tag was deleted.'
-    redirect_to :back
+    redirect_to tags_path
   end
 
   private

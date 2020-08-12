@@ -11,7 +11,7 @@
     <% @tags.each do |tag| %>
       <tr>
         <td><%= tag.name %></td>
-        <td><%= tag.tickets.size  %></td>
+        <td><%= link_to @post_counts[tag.id] || 0, "#{tickets_path}?tag=#{tag.id}" %></td>
         <td><%= link_to 'Edit', edit_tag_path(tag) %> |
             <%= link_to 'Delete', tag_path(tag),
                 method: :delete,

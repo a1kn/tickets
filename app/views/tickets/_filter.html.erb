@@ -1,0 +1,41 @@
+<% if Project.all.any? %>
+  <%= form_with url: tickets_path, method: 'get', local: true, class: 'form-inline mt-5' do |f| %>
+    <p class="lead">
+      Showing tickets from 
+      <%= f.select :project, {}, {prompt: 'Any Project'} do %>
+        <% Project.all.each do |project| %>
+          <% if params[:project].to_i == project.id %>
+            <%= content_tag(:option, project.name, value: project.id, selected: 'selected') %>
+          <% else %>
+            <%= content_tag(:option, project.name, value: project.id) %>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      with status
+      <%= f.select :status, {}, {prompt: 'Any Status'} do %>
+        <% [['New', 'new'], ['Blocked', 'blocked'], ['In Progress', 'in_progress'], 
+            ['Fixed', 'fixed']].each do |status| %>
+          <% if params[:status] == status.last %>
+            <%= content_tag(:option, status.first, value: status.last, selected: 'selected') %>
+          <% else %>
+            <%= content_tag(:option, status.first, value: status.last) %>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      tagged
+      <%= f.select :tag, {}, {prompt: 'Any Tag'} do %>
+        <% @tags.each do |tag| %>
+          <% if params[:tag].to_i == tag.id %>
+            <%= content_tag(:option, tag.name, value: tag.id, selected: 'selected') %>
+          <% else %>
+            <%= content_tag(:option, tag.name, value: tag.id) %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <%= submit_tag 'Filter', class: 'btn btn-sm btn-secondary mb-1 ml-3' %>
+    <%= link_to 'Reset', tickets_path, class: 'btn btn-sm mb-1' %>
+    </p>
+  <% end %>
+<% end %>

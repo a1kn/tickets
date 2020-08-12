@@ -1,0 +1,15 @@
+  <div class="card my-4">
+    <div class="card-header">
+      <%= comment.creator.username  %> at <%= comment.created_at %> 
+      <% if session[:user_id] == comment.creator.id %> 
+        <%= link_to ' Edit', edit_ticket_comment_path(@ticket, comment.id) %> |
+        <%= link_to 'Delete', ticket_comment_path(@ticket, comment.id),
+            method: :delete,
+            data: { confirm: 'Are you sure?' } %>
+      <% end %>
+    </div>
+    <div class="card-body">
+      <p class="card-text"><%= comment.body %></p>
+    </div>
+  </div>
+

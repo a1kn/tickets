@@ -22,6 +22,18 @@
     <%= f.text_area :body, class: 'form-control' %>
   </div>
   <div class="form-group">
+    <%= f.label :assignee %>
+    <%= f.select :assignee_id, {}, {prompt: 'Assign to:'}, {class: 'form-control'} do %>
+      <% @users.each do |user| %>
+        <% if user.id == @ticket.assignee_id %>
+          <%= content_tag(:option, user.username, value: user.id, selected: 'selected') %>
+        <% else %>
+          <%= content_tag(:option, user.username, value: user.id) %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="form-group">
     <%= f.label :status %>
     <%= f.select :status, [['New', 'new'], ['Blocked', 'blocked'], 
                            ['In Progress', 'in_progress'], ['Fixed', 'fixed']], 

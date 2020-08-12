@@ -1,3 +1,11 @@
 <%= render 'shared/title', title: 'Projects' %>
 
-<%= render 'table' %>
+<div class="my-3">
+  <%= link_to 'New Project', new_project_path, class: 'btn btn-outline-primary' %>
+</div>
+
+<% if Project.all.any? %>
+  <%= render 'table' %>
+<% else %>
+  <p class="lead py-5">No projects yet. <%= link_to 'Add one', new_project_path %>?</p>
+<% end %>

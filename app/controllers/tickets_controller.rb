@@ -3,18 +3,29 @@ class TicketsController < ApplicationController
 
   def index
     @tickets = Ticket.all
+    @tickets = @tickets.filter_by_project(params[:project]) if params[:project].present?
+    @tickets = @tickets.filter_by_status(params[:status]) if params[:status].present?
+    @tickets = @tickets.filter_by_tag(params[:tag]) if params[:tag].present?
+    @projects = Project.all
+    @tags = Tag.all.sort_by {|t| t.name}
   end
 
   def new
-    @projects = Project.all
     @ticket = Ticket.new
-    @tags = Tag.all
+    @projects = Project.all
+    @tags = Tag.all.sort_by {|t| t.name}
+    @users = User.all
+
+    check_for_existing_projects
   end
 
   def create
     @ticket = Ticket.new(strong_params)
     @projects = Project.all
-    @tags = Tag.all
+    @tags = Tag.all.sort_by {|t| t.name}
+    @users = User.all
+    @ticket.creator = User.find(session[:user_id]) 
+    add_tags if params[:tags]
 
     if @ticket.save
       flash[:success] = 'Ticket created.'
@@ -26,19 +37,22 @@ class TicketsController < ApplicationController
 
   def show
     @ticket = find_ticket
+    @comment = Comment.new
   end
 
   def edit
     @ticket = find_ticket
-    @tags = Tag.all
+    @tags = Tag.all.sort_by {|t| t.name}
     @projects = Project.all
+    @users = User.all
   end
 
   def update
     @ticket = find_ticket
-    @tags = Tag.all
     @projects = Project.all
-    add_tags
+    @tags = Tag.all.sort_by {|t| t.name}
+    @users = User.all
+    add_tags if params[:tags]
 
     if @ticket.update(strong_params)
       flash[:success] = 'Ticket updated.'
@@ -59,7 +73,7 @@ class TicketsController < ApplicationController
   private 
 
   def strong_params
-    params.require(:ticket).permit(:project_id, :name, :description, :body, :status)
+    params.require(:ticket).permit(:project_id, :name, :description, :body, :status, :assignee_id)
   end
 
   def find_ticket
@@ -69,5 +83,12 @@ class TicketsController < ApplicationController
   def add_tags
     tags = params[:tags].map {|tag_id| Tag.find(tag_id)}
     @ticket.tags = tags
+  end
+
+  def check_for_existing_projects
+    if Project.all.none?
+      flash[:warning] = 'You must create a project before creating a ticket.'
+      redirect_to new_project_path
+    end
   end
 end

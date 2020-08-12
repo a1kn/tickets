@@ -1,5 +1,7 @@
 <%= render 'shared/title', title: 'Login' %>
 
+<p class="lead mb-5">If you don't have an account yet, <%= link_to 'sign up', register_path %>!</p>
+
 <%= form_tag '/login' do %>
   <div class="form-group">
     <%= label_tag :username %>

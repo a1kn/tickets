@@ -3,6 +3,8 @@ class ProjectsController < ApplicationController
 
   def index
     @projects = Project.all
+
+    first_run?
   end
 
   def new
@@ -56,5 +58,14 @@ class ProjectsController < ApplicationController
 
   def find_project
     Project.find(params[:id])
+  end
+
+  def first_run?
+    if Project.all.none?
+      flash[:success] = 'Welcome to the Ticketing App! This app allows you to' +
+        ' manage tickets by organizing them into projects and adding tags. ' +
+        ' You will need to register for an account before getting started. ' +
+        ' When you are logged in, create a new project and begin!'
+    end
   end
 end

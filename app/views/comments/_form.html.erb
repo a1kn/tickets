@@ -1,0 +1,13 @@
+<%= form_with model: [@ticket, @comment], local: true do |f| %>
+  <div class="form-group">
+    <%= f.label 'Add a comment' %>
+    <%= f.text_area :body, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= label_tag 'Change Ticket Status: ' %>
+    <%= select_tag :status, options_for_select([['New', 'new'], 
+    ['Blocked', 'blocked'], ['In Progress', 'in_progress'], ['Fixed', 'fixed']], @ticket.status) %>
+  </div>
+  <%= f.submit 'Submit', class: 'btn btn-primary' %>
+<% end %>
+

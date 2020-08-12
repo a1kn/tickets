@@ -4,4 +4,8 @@
   <%= link_to 'New Tag', new_tag_path, class: 'btn btn-outline-primary' %>
 </div>
 
-<%= render 'table' %>
+<% if Tag.all.any? %>
+  <%= render 'table' %>
+<% else %>
+  <p class="lead py-5">No tags yet. <%= link_to 'Add one', new_tag_path %>?</p>
+<% end %>

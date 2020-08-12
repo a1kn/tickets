@@ -1,3 +1,12 @@
 <%= render 'shared/title', title: 'All Tickets' %>
 
-<%= render 'table' %>
+<div class="my-3">
+  <%= link_to 'New Ticket', new_ticket_path, class: 'btn btn-outline-primary' %>
+</div>
+
+<% if Ticket.all.any? %>
+  <%= render 'filter' %>
+  <%= render 'table' %>
+<% else %>
+  <p class="lead py-5">No tickets yet. <%= link_to 'Add one', new_ticket_path %>?</p>
+<% end %>
