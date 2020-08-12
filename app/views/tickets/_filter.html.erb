@@ -1,4 +1,4 @@
-<% if Project.all.any? %>
+<% if Project.all.any? && Ticket.all.any? && Tag.all.any? %>
   <%= form_with url: tickets_path, method: 'get', local: true, class: 'form-inline mt-5' do |f| %>
     <p class="lead">
       Showing tickets from 

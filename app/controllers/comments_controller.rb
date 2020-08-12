@@ -1,10 +1,10 @@
 class CommentsController < ApplicationController
   def create
     @ticket = Ticket.find(params[:ticket_id])
+    update_ticket_status if params[:status]
     @comment = @ticket.comments.create(strong_params)
     @comment.creator = User.find(session[:user_id])
     @comment.save
-    update_ticket_status if params[:status]
     redirect_to ticket_path(@ticket)
   end
 
