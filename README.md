@@ -1,24 +1,9 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Ticketing App is a simple CRUD project using Rails 6 and Bootstrap. It has the
+ability to manage tickets, assign them to a project, and add tags to organize
+them.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Only logged in users can change data. See [live
+version](https://fierce-depths-60125.herokuapp.com/) for more details about
+functionality.
